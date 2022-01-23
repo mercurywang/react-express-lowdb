@@ -1,0 +1,23 @@
+{
+  "name": "mercury-server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "babel-node --presets env ./bin/www"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "json": "^11.0.0",
+    "lowdb": "1.0.0",
+    "moment": "^2.29.1",
+    "morgan": "~1.9.0"
+  }
+}
