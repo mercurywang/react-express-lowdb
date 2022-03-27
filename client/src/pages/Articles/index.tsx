@@ -1,5 +1,7 @@
 import { Button, Card, CardActions, Container, Grid, TextField } from '@material-ui/core';
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { fetchAllArticles } from '../../api/article';
 
 export interface ArticleItem {
   id?: string;
@@ -8,6 +10,7 @@ export interface ArticleItem {
   author?: string;
   created_at?: string;
   content?: string;
+  comments?: string[];
 }
 export interface ArticleProps {
   articles?: ArticleItem[];
@@ -34,13 +37,9 @@ class Articles extends React.Component<{}, ArticleProps> {
   }
 
   fetchArticles() {
-    fetch(`http://localhost:3000/articles?search_text=${this.state.search_text}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        this.setState({ articles: res });
-      });
+    fetchAllArticles(this.state.search_text).then((res) => {
+      this.setState({ articles: res });
+    });
   }
 
   componentDidMount() {
@@ -76,9 +75,11 @@ class Articles extends React.Component<{}, ArticleProps> {
                   <p>{item.title}</p>
                   <span>{item.subtitle}</span>
                   <CardActions>
-                    <Button color="primary" size="small">
-                      Learn More
-                    </Button>
+                    <Link to={`${item.id}`}>
+                      <Button color="primary" size="small">
+                        Learn More
+                      </Button>
+                    </Link>
                   </CardActions>
                 </Card>
               ))

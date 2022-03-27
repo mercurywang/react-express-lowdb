@@ -7,7 +7,13 @@
       "title": "This could be the hardest note I try",
       "subtitle": "sub",
       "author": "Fantana",
-      "content": "The moonlight"
+      "content": "new content",
+      "comments": [
+        "Cool",
+        "sdsds",
+        "sdsds",
+        "this "
+      ]
     },
     {
       "id": 2,
@@ -16,7 +22,8 @@
       "title": "This could be the hardest note I try",
       "subtitle": "sub",
       "author": "Fantana",
-      "content": "The moonlight"
+      "content": "The moonlight",
+      "comments": []
     },
     {
       "id": 3,
@@ -25,7 +32,8 @@
       "title": "This could be",
       "subtitle": "sub",
       "author": "Fantana",
-      "content": "The moonlight"
+      "content": "The moonlight",
+      "comments": []
     }
   ]
 }
