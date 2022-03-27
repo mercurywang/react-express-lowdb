@@ -18,12 +18,20 @@ router.get('/', function (req, res, next) {
   }
 });
 
+router.get('/:id', function (req, res, next) {
+  const post = db
+    .get('posts')
+    .find({ id: parseInt(req.params.id) })
+    .value();
+  res.send(post);
+});
+
 router.post('/', function (req, res, next) {
   const article = {
     id: db.get('posts').size().value() + 1,
     created_at: moment().format('YYYY-MM-DD HH:mm:ss').toString(),
     update_at: moment().format('YYYY-MM-DD HH:mm:ss').toString(),
-    ...req.body,
+    ...req.body
   };
 
   db.get('posts').push(article).write();

@@ -2,9 +2,12 @@ import { Button, Card, CardActions, Container, Grid, TextField } from '@material
 import React from 'react';
 
 export interface ArticleItem {
-  id: string;
+  id?: string;
   title?: string;
   subtitle?: string;
+  author?: string;
+  created_at?: string;
+  content?: string;
 }
 export interface ArticleProps {
   articles?: ArticleItem[];
@@ -18,17 +21,32 @@ class Articles extends React.Component<{}, ArticleProps> {
         {
           id: '1',
           title: 'title1',
-          subtitle: 'subtitle1',
+          subtitle: 'subtitle1'
         },
         {
           id: '2',
           title: 'title2',
-          subtitle: 'subtitle2',
-        },
+          subtitle: 'subtitle2'
+        }
       ],
-      search_text: '',
-    } as ArticleProps;
+      search_text: ''
+    };
   }
+
+  fetchArticles() {
+    fetch(`http://localhost:3000/articles?search_text=${this.state.search_text}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        this.setState({ articles: res });
+      });
+  }
+
+  componentDidMount() {
+    this.fetchArticles();
+  }
+
   render() {
     return (
       <div>
@@ -37,6 +55,7 @@ class Articles extends React.Component<{}, ArticleProps> {
             <Grid container>
               <Grid item xs={6}>
                 <TextField
+                  fullWidth
                   placeholder="Search for title or content"
                   value={this.state.search_text}
                   onChange={(e) => {
@@ -44,8 +63,8 @@ class Articles extends React.Component<{}, ArticleProps> {
                   }}
                 />
               </Grid>
-              <Grid item xs={6}>
-                <Button color="primary" variant="contained">
+              <Grid item xs={3}>
+                <Button color="primary" variant="contained" onClick={this.fetchArticles.bind(this)}>
                   Search!
                 </Button>
               </Grid>
