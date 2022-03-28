@@ -1,7 +1,7 @@
 import { Button, Card, Container, Paper, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { fetchArticleById } from '../../api/article';
+import { commitCommentById, fetchArticleById } from '../../api/article';
 import { ArticleItem } from '../Articles';
 
 const ArticleDetail: React.FC = () => {
@@ -11,33 +11,24 @@ const ArticleDetail: React.FC = () => {
   const { id = '' } = useParams<string>();
 
   const commitComment = () => {
-    fetch(`http://localhost:3000/articles/${id}/comments`, {
-      method: 'POST',
-      body: JSON.stringify({ comment }),
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      })
-    })
-      .then((res) => {
-        return res.json();
-      })
+    const content = JSON.stringify({ comment });
+    commitCommentById(id, content)
       .then((res) => {
         setComment(res);
         fetchArticleById(id).then((res) => setArticle(res));
       })
       .then(() => {
         setComment('');
-      })
-      .catch((e) => {
-        alert('Error occurs during committing');
       });
   };
 
-  useEffect(() => {
+  const fetchArticle = (id: string) => {
     fetchArticleById(id).then((res) => setArticle(res));
+  };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => {
+    fetchArticle(id);
+  }, [id]);
 
   return (
     <div>
